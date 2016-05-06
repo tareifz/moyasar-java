@@ -32,5 +32,15 @@ public class SadadPaymentRequestBean extends PaymentRequestBean{
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "SadadPaymentRequestBean [username=" + username + ", success_url=" + success_url + ", fail_url="
+				+ fail_url + ", getAmount()=" + getAmount() + ", getCurrency()=" + getCurrency() + ", getDescription()="
+				+ getDescription() + "]";
+	}
+	
+	
+	
+	
 	
 }

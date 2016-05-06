@@ -1,5 +1,8 @@
 package com.moyasar.test;
 
+import java.util.List;
+
+import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.SadadPaymentRequestBean;
 
 public class HelloMoyasar {
@@ -23,6 +26,14 @@ public class HelloMoyasar {
 		
 		System.out.println("THE END OF MOYASAR JAVA API TESTING \n\n");
 		
+	}
+	
+	
+	public List<PaymentResponseBean> getPaymentTest()
+	{
+		List<PaymentResponseBean> payments = null; 
+		
+		return payments; 
 	}
 	
 }

@@ -27,9 +27,12 @@ public class CreditCardPaymentRequestBean extends PaymentRequestBean{
 	 /**
 	 * 	Four digit number representing the card’s expiration year.
 	 */
-	 private int year;
-
-	public String getName() {
+	 private int year;	 
+	 
+	 
+	 
+	 
+	 public String getName() {
 		return name;
 	}
 

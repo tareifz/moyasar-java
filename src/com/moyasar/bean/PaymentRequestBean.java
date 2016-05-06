@@ -1,6 +1,6 @@
 package com.moyasar.bean;
 
-public abstract class PaymentRequestBean {
+public class PaymentRequestBean {
 	
 	/**
 	 * positive integer		A positive integer in the smallest currency unit

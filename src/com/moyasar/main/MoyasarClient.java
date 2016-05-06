@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.moyasar.bean.PaymentRequestBean;
 import com.moyasar.bean.PaymentResponseBean;
 
-public class MoyasarClint {
+public class MoyasarClient {
 	
 	
 	

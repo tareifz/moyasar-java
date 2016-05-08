@@ -1,22 +1,55 @@
 package com.moyasar.bean;
 
+import com.google.gson.annotations.SerializedName;
+
+
 public class PaymentResponseBean {
 	
+	@SerializedName("id")
 	private String id; 
+	
+	@SerializedName("status")
 	private String status;
+	
+	@SerializedName("amount")
 	private double amount; 
+	
+	@SerializedName("currency")
 	private String currency;
+	
+	@SerializedName("description")
 	private String description;	//payment description
-	private String invoice_id;
+	
+	
+	@SerializedName("fee")
 	private double fee;
+	
+	@SerializedName("amount_format")
 	private String amountFormat; 
+	
+	@SerializedName("fee_format")
 	private String feeFormat;
+	
+	@SerializedName("invoice_id")
 	private String invoiceID;
+	
+	@SerializedName("ip")
 	private String ip;
+	
+	@SerializedName("created_at")
 	private String createdOn;
+	
+	@SerializedName("updated_at")
 	private String updatedON;
 	
-  	
+	@SerializedName("source")
+	private SourceResponse source;
+	
+	
+    
+	public SourceResponse getSource() {
+		return source;
+	}
 	public String getId() {
 		return id;
 	}
@@ -46,12 +79,6 @@ public class PaymentResponseBean {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getInvoice_id() {
-		return invoice_id;
-	}
-	public void setInvoice_id(String invoice_id) {
-		this.invoice_id = invoice_id;
 	}
 	public double getFee() {
 		return fee;
@@ -95,6 +122,15 @@ public class PaymentResponseBean {
 	public void setUpdatedON(String updatedON) {
 		this.updatedON = updatedON;
 	}
+	@Override
+	public String toString() {
+		return "PaymentResponseBean [id=" + id + ", status=" + status + ", amount=" + amount + ", currency=" + currency
+				+ ", description=" + description + ", fee=" + fee + ", amountFormat=" + amountFormat + ", feeFormat="
+				+ feeFormat + ", invoiceID=" + invoiceID + ", ip=" + ip + ", createdOn=" + createdOn + ", updatedON="
+				+ updatedON + ", source=" + source + "]";
+	}
+	
+	
 	
 	
 }

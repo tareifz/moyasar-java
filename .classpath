@@ -3,5 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-8-oracle"/>
 	<classpathentry kind="lib" path="/home/basem/workspace/moyasar-java/lib/retrofit-2.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/basem/workspace/moyasar-java/lib/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="/home/basem/workspace/moyasar-java/lib/converter-gson-2.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/basem/workspace/moyasar-java/lib/okhttp-3.2.0.jar"/>
+	<classpathentry kind="lib" path="/home/basem/workspace/moyasar-java/lib/okio-1.8.0.jar"/>
+	<classpathentry kind="lib" path="/home/basem/workspace/moyasar-java/lib/logging-interceptor-3.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

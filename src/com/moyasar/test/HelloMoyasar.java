@@ -1,9 +1,12 @@
 package com.moyasar.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.moyasar.bean.PaymentResponseBean;
+import com.moyasar.bean.PaymentsResponseBean;
 import com.moyasar.bean.SadadPaymentRequestBean;
+import com.moyasar.main.MoyasarClient;
 
 public class HelloMoyasar {
 
@@ -26,12 +29,19 @@ public class HelloMoyasar {
 		
 		System.out.println("THE END OF MOYASAR JAVA API TESTING \n\n");
 		
+		System.out.println("STARTING MOYASAR JAVA API GET PAYMENTS TESTING \n\n");
+		getPaymentTest();
+		System.out.println("THE END OF MOYASAR JAVA API GET PAYMENTS TESTING \n\n");
+		
 	}
 	
 	
-	public List<PaymentResponseBean> getPaymentTest()
+	public static PaymentsResponseBean getPaymentTest()
 	{
-		List<PaymentResponseBean> payments = null; 
+		MoyasarClient c = new MoyasarClient("132", "123");
+		PaymentsResponseBean payments; 
+		
+		payments = c.getAllPayments();
 		
 		return payments; 
 	}

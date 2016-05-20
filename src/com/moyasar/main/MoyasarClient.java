@@ -106,6 +106,39 @@ public class MoyasarClient {
 		return null; 
 	}
 
+	
+	public PaymentResponseBean getPayment(String id){
+		System.out.printf("Before Try Block getPayment and the ID IS: %s", id);
+		try{
+			System.out.println("\n In method 1 ");
+			MoyasarService service = caller.create(MoyasarService.class);
+			System.out.println("In method 2 ");
+			Call<PaymentResponseBean> call = service.getPayment(id);
+			System.out.println("In method 3 ");
+			call.enqueue(new Callback<PaymentResponseBean>(){
+
+				@Override
+				public void onFailure(Call<PaymentResponseBean> payment, Throwable e) {
+					System.out.println("Erro Happend Payments Object: \n"+payment );
+					e.printStackTrace();
+				}
+
+				@Override
+				public void onResponse(Call<PaymentResponseBean> payment,
+						Response<PaymentResponseBean> respons) {
+					System.out.println("Response ---> \n"+ respons.body() );
+					System.out.println("Payments --> \n" + payment.toString());
+					
+				}
+				
+			});
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return null; 
+	}
+	
 
 	public String getPublicKey() {
 		return publicKey;

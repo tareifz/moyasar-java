@@ -39,9 +39,11 @@ public class HelloMoyasar {
 	public static PaymentsResponseBean getPaymentTest()
 	{
 		MoyasarClient c = new MoyasarClient("132", "123");
-		PaymentsResponseBean payments; 
+		PaymentsResponseBean payments = null; 
 		
 		payments = c.getAllPayments();
+		
+		c.getPayment("f894b206-8756-4910-ac25-dcecee99694a");
 		
 		return payments; 
 	}

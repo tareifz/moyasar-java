@@ -1,9 +1,5 @@
 package com.moyasar.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.PaymentsResponseBean;
 import com.moyasar.bean.SadadPaymentRequestBean;
 import com.moyasar.main.MoyasarClient;

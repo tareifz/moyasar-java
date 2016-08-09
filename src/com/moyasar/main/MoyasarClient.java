@@ -1,13 +1,10 @@
 package com.moyasar.main;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
-import com.google.gson.Gson;
 import com.moyasar.bean.PaymentRequestBean;
 import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.PaymentsResponseBean;
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,9 +14,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 
 public class MoyasarClient {
 	
@@ -28,6 +22,9 @@ public class MoyasarClient {
 	private String privateKey;
 	private Retrofit caller;
 //	private OkHttpClient client;
+	
+	
+	
 	
 	private MoyasarClient(){
 		// setting up Retrofit 
@@ -39,8 +36,8 @@ public class MoyasarClient {
 	
 	
 	public MoyasarClient(String publicKey, String privateKey) {
-		this.publicKey = publicKey;
-		this.privateKey = privateKey;
+		setPublicKey(publicKey);
+		setPrivateKey(privateKey);
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();  
 		// set your desired log level
 		logging.setLevel(Level.BODY);
@@ -57,6 +54,9 @@ public class MoyasarClient {
 				.build();
 //		 client = new OkHttpClient();
 	}
+	
+	
+	
 
 
 	public PaymentResponseBean makePayment(PaymentRequestBean payment){
@@ -113,7 +113,7 @@ public class MoyasarClient {
 			System.out.println("\n In method 1 ");
 			MoyasarService service = caller.create(MoyasarService.class);
 			System.out.println("In method 2 ");
-			Call<PaymentResponseBean> call = service.getPayment(id);
+			Call<PaymentResponseBean> call = service.getPayment(getPrivateKey(),id);
 			System.out.println("In method 3 ");
 			call.enqueue(new Callback<PaymentResponseBean>(){
 
@@ -130,6 +130,7 @@ public class MoyasarClient {
 					System.out.println("Payments --> \n" + payment.toString());
 					
 				}
+
 				
 			});
 		}catch(Exception e){
@@ -139,15 +140,29 @@ public class MoyasarClient {
 		return null; 
 	}
 	
+	
+	private String makeKey(String key){ 
+		// This method is to prepare the key to match the format "Basic KEY"
+		return "Basic "+key;
+	}
+	
+	
+	public void setPublicKey(String publicKey){
+		try{
+			if (!publicKey.isEmpty()){
+				this.publicKey = makeKey(publicKey);
+			}
+			else
+				throw new IllegalArgumentException("Public Key Cannot be empty!"); 
+		}catch (Exception e) {
+			throw new IllegalArgumentException("Public Key Cannot be empty!");
+		} 
+	}
 
 	public String getPublicKey() {
 		return publicKey;
 	}
 
-
-	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
-	}
 
 
 	public String getPrivateKey() {
@@ -156,7 +171,15 @@ public class MoyasarClient {
 
 
 	public void setPrivateKey(String privateKey) {
-		this.privateKey = privateKey;
+		try{
+			if (!privateKey.isEmpty()){
+				this.privateKey = makeKey(privateKey);
+			}
+			else
+				throw new IllegalArgumentException("Private Key Cannot be empty!"); 
+		}catch (Exception e) {
+			throw new IllegalArgumentException("Private Key Cannot be empty!");
+		} 
 	}
 	
 

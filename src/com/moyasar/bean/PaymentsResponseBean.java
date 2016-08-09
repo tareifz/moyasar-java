@@ -1,9 +1,9 @@
 package com.moyasar.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.annotations.SerializedName;
 
 public class PaymentsResponseBean {
 

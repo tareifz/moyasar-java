@@ -1,5 +1,6 @@
 package com.moyasar.test;
 
+import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.PaymentsResponseBean;
 import com.moyasar.bean.SadadPaymentRequestBean;
 import com.moyasar.main.MoyasarClient;
@@ -34,13 +35,15 @@ public class HelloMoyasar {
 	
 	public static PaymentsResponseBean getPaymentTest()
 	{
-		MoyasarClient c = new MoyasarClient("132", "123");
+		MoyasarClient c = new MoyasarClient("sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy", "sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy");
 		PaymentsResponseBean payments = null; 
 		
-		payments = c.getAllPayments();
+		//payments = c.getAllPayments();
 		
 		
-		c.getPayment("f894b206-8756-4910-ac25-dcecee99694a");
+		PaymentResponseBean paymentBean = new PaymentResponseBean(); 
+		paymentBean = c.getPayment("2811a704-e7d7-4fc5-a2e3-3a37974dd96f");
+		System.out.println("Description ===> " + paymentBean.getDescription());
 		
 		return payments; 
 	}

@@ -1,5 +1,6 @@
 package com.moyasar.main;
 
+import java.util.Base64;
 import java.util.UUID;
 
 import com.moyasar.bean.PaymentRequestBean;
@@ -127,7 +128,7 @@ public class MoyasarClient {
 				public void onResponse(Call<PaymentResponseBean> payment,
 						Response<PaymentResponseBean> respons) {
 					System.out.println("Response ---> \n"+ respons.body() );
-					System.out.println("Payments --> \n" + payment.toString());
+					System.out.println("Payments --> \n" + payment.toString()); 
 					
 				}
 
@@ -142,8 +143,8 @@ public class MoyasarClient {
 	
 	
 	private String makeKey(String key){ 
-		// This method is to prepare the key to match the format "Basic KEY"
-		return "Basic "+key;
+		// This method is to prepare the key to match the format "Basic KEY" 
+		return "Basic "+Base64.getEncoder().encodeToString(key.getBytes());
 	}
 	
 	

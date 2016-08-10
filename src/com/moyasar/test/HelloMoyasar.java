@@ -38,12 +38,13 @@ public class HelloMoyasar {
 		MoyasarClient c = new MoyasarClient("sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy", "sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy");
 		PaymentsResponseBean payments = null; 
 		
-		//payments = c.getAllPayments();
+		payments = c.getAllPayments();
 		
+		System.out.println("Pyaments in account = " + payments.getPayments().size());
 		
 		PaymentResponseBean paymentBean = new PaymentResponseBean(); 
-		paymentBean = c.getPayment("2811a704-e7d7-4fc5-a2e3-3a37974dd96f");
-		System.out.println("Description ===> " + paymentBean.getDescription());
+		paymentBean = c.getPayment("2811a704-e7d7-4fc5-a2e3-3a37974dd9");
+		System.out.println("DESCRIPTION:  ===> " + paymentBean.getDescription());
 		
 		return payments; 
 	}

@@ -11,7 +11,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,21 +20,9 @@ public class MoyasarClient {
 	public static final String API_BASE_URL = "https://api.moyasar.com/v1/";
 	private String publicKey; 
 	private String privateKey;
-	private Retrofit caller;
-//	private OkHttpClient client;
+	private static Retrofit caller;
 	
-	
-	
-	
-	private MoyasarClient(){
-		// setting up Retrofit 
-		 caller  = new Retrofit.Builder()
-				.baseUrl(API_BASE_URL)
-				.addConverterFactory(GsonConverterFactory.create())
-				.build();
-	}
-	
-	
+		
 	public MoyasarClient(String publicKey, String privateKey) {
 		setPublicKey(publicKey);
 		setPrivateKey(privateKey);
@@ -49,16 +36,17 @@ public class MoyasarClient {
 		// add logging as last interceptor
 		httpClient.addInterceptor(logging); // <-- this is the important line!
 		caller  = new Retrofit.Builder()
-				.baseUrl("https://api.moyasar.com/v1/")
+				.baseUrl(API_BASE_URL)
 				.addConverterFactory(GsonConverterFactory.create())
 				.client(httpClient.build())
 				.build();
-//		 client = new OkHttpClient();
+}
+	
+	
+	
+	public Retrofit getCaller(){
+		return caller; 
 	}
-	
-	
-	
-
 
 	public PaymentResponseBean makePayment(PaymentRequestBean payment){
 		return null;
@@ -76,18 +64,30 @@ public class MoyasarClient {
 	 */
 
 	public PaymentsResponseBean getAllPayments(){
-		System.out.println("Before Try Block");
+		PaymentsResponseBean paymentsList = new PaymentsResponseBean(); 
 		try{
-			System.out.println("In method 1 ");
+			
 			MoyasarService service = caller.create(MoyasarService.class);
-			System.out.println("In method 2 ");
-			Call<PaymentsResponseBean> call = service.getPayments();
-			System.out.println("In method 3 ");
+			
+			Call<PaymentsResponseBean> call = service.getPayments(getPrivateKey());
+			
+			Response<PaymentsResponseBean> response = call.execute();
+			
+			if (response.isSuccessful()){
+				// 200 OK 
+				paymentsList = response.body();
+				
+			}else{
+				// API error  
+				System.err.println("Errors ===> " + response.errorBody());
+			}
+			
+			/** The below is ASYNC call which we will support in feature not now!  
 			call.enqueue(new Callback<PaymentsResponseBean>(){
 
 				@Override
 				public void onFailure(Call<PaymentsResponseBean> payments, Throwable e) {
-					System.out.println("Erro Happend Payments Object: \n"+payments );
+					System.out.println("Error Happend Payments Object: \n"+payments );
 					e.printStackTrace();
 				}
 
@@ -99,23 +99,35 @@ public class MoyasarClient {
 					
 				}
 				
-			});
+			});**/
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return null; 
+		return paymentsList; 
 	}
 
 	
 	public PaymentResponseBean getPayment(String id){
-		System.out.printf("Before Try Block getPayment and the ID IS: %s", id);
+		PaymentResponseBean myPayment = new PaymentResponseBean();
 		try{
-			System.out.println("\n In method 1 ");
+			
 			MoyasarService service = caller.create(MoyasarService.class);
-			System.out.println("In method 2 ");
+			
 			Call<PaymentResponseBean> call = service.getPayment(getPrivateKey(),id);
-			System.out.println("In method 3 ");
+			
+			Response<PaymentResponseBean> response = call.execute(); 
+			if (response.isSuccessful()){
+				// 200 OK 
+				myPayment = response.body();
+			}else{
+				// API error  
+				System.err.println("Errors ===> " + response.errorBody());
+			}
+			
+	
+			/** Async. call it dose not fit the case.. 
 			call.enqueue(new Callback<PaymentResponseBean>(){
 
 				@Override
@@ -128,17 +140,24 @@ public class MoyasarClient {
 				public void onResponse(Call<PaymentResponseBean> payment,
 						Response<PaymentResponseBean> respons) {
 					System.out.println("Response ---> \n"+ respons.body() );
-					System.out.println("Payments --> \n" + payment.toString()); 
-					
+//					System.out.println("Payments --> \n" + payment.toString()); 
+					 if (respons.isSuccessful()){
+						 // We got 200 OK
+						 myPayment.setAmount(respons.body().getAmount());
+						 myPayment.setDescription(respons.body().getDescription());
+					 }else{
+						 // WE GOT AN ERROR
+					 }
 				}
 
 				
-			});
+			}); **/
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return null; 
+		return myPayment; 
 	}
 	
 	

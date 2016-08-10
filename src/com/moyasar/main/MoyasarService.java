@@ -11,9 +11,9 @@ import retrofit2.http.Path;
 
 public interface MoyasarService {
 
-	@Headers({"Authorization: Basic TXJ0d296TEpBdUZtTEtXV1NhUmFvYUxYOg==","Content-Type: application/json"})
+	@Headers({"Content-Type: application/json"})
 	@GET("https://api.moyasar.com/v1/payments")
-	public retrofit2.Call<PaymentsResponseBean> getPayments();
+	public retrofit2.Call<PaymentsResponseBean> getPayments(@Header("Authorization") String key);
 	
 	@Headers({"Content-Type: application/json"})
 	@GET("https://api.moyasar.com/v1/payments/{id}")

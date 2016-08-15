@@ -1,5 +1,6 @@
 package com.moyasar.main;
 
+import java.net.SocketTimeoutException;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -23,13 +24,14 @@ public class MoyasarClient {
 	private static Retrofit caller;
 	
 		
-	public MoyasarClient(String publicKey, String privateKey) {
+	public MoyasarClient(String publicKey, String privateKey, boolean enable_logging) {
 		setPublicKey(publicKey);
 		setPrivateKey(privateKey);
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();  
-		// set your desired log level
-		logging.setLevel(Level.BODY);
-
+		if(enable_logging){
+			// set your desired log level
+			logging.setLevel(Level.BODY);
+		}
 		OkHttpClient.Builder httpClient = new OkHttpClient.Builder();  
 		// add your other interceptors …
 
@@ -76,6 +78,8 @@ public class MoyasarClient {
 			if (response.isSuccessful()){
 				// 200 OK 
 				paymentsList = response.body();
+				paymentsList.setStatusCode(response.code());
+				paymentsList.setMessage(response.message());
 				
 			}else{
 				// API error  
@@ -112,6 +116,12 @@ public class MoyasarClient {
 	public PaymentResponseBean getPayment(String id){
 		PaymentResponseBean myPayment = new PaymentResponseBean();
 		try{
+			if (id.isEmpty()){
+				myPayment.setStatusCode(412);
+				myPayment.setErrorType("client_error");
+				myPayment.setMessage("Precondition Failed: Payment ID Cannot be Empty or Null");
+				throw new IllegalArgumentException("Payment ID Cannot be Empty or Null");
+			}
 			
 			MoyasarService service = caller.create(MoyasarService.class);
 			
@@ -121,9 +131,13 @@ public class MoyasarClient {
 			if (response.isSuccessful()){
 				// 200 OK 
 				myPayment = response.body();
+				myPayment.setStatusCode(response.code());
+				myPayment.setMessage(response.message());
 			}else{
 				// API error  
-				System.err.println("Errors ===> " + response.errorBody());
+				myPayment.setStatusCode(response.code());
+				myPayment.setMessage(response.message());
+				myPayment.setErrorType("api_error");
 			}
 			
 	
@@ -132,7 +146,7 @@ public class MoyasarClient {
 
 				@Override
 				public void onFailure(Call<PaymentResponseBean> payment, Throwable e) {
-					System.out.println("Erro Happend Payments Object: \n"+payment );
+					System.out.println("Error Happend Payments Object: \n"+payment );
 					e.printStackTrace();
 				}
 
@@ -153,7 +167,11 @@ public class MoyasarClient {
 				
 			}); **/
 			
-		}catch(Exception e){
+		}catch(SocketTimeoutException tm)
+		{
+			System.err.println("API END POINT TIMED OUT");
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
 		

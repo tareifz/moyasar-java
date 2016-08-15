@@ -3,7 +3,7 @@ package com.moyasar.bean;
 import com.google.gson.annotations.SerializedName;
 
 
-public class PaymentResponseBean {
+public class PaymentResponseBean extends Response{
 	
 	@SerializedName("id")
 	private String id; 
@@ -44,7 +44,6 @@ public class PaymentResponseBean {
 	
 	@SerializedName("source")
 	private SourceResponse source;
-	
 	
     
 	public SourceResponse getSource() {
@@ -122,13 +121,31 @@ public class PaymentResponseBean {
 	public void setUpdatedON(String updatedON) {
 		this.updatedON = updatedON;
 	}
+	
+	
 	@Override
 	public String toString() {
-		return "PaymentResponseBean [id=" + id + ", status=" + status + ", amount=" + amount + ", currency=" + currency
-				+ ", description=" + description + ", fee=" + fee + ", amountFormat=" + amountFormat + ", feeFormat="
-				+ feeFormat + ", invoiceID=" + invoiceID + ", ip=" + ip + ", createdOn=" + createdOn + ", updatedON="
-				+ updatedON + ", source=" + source + "]";
+		return "PaymentResponseBean [getSource()=" + getSource() + ", getId()=" + getId() + ", getStatus()="
+				+ getStatus() + ", getAmount()=" + getAmount() + ", getCurrency()=" + getCurrency()
+				+ ", getDescription()=" + getDescription() + ", getFee()=" + getFee() + ", getAmountFormat()="
+				+ getAmountFormat() + ", getFeeFormat()=" + getFeeFormat() + ", getInvoiceID()=" + getInvoiceID()
+				+ ", getIp()=" + getIp() + ", getCreatedOn()=" + getCreatedOn() + ", getUpdatedON()=" + getUpdatedON()
+				+ ", getStatusCode()=" + getStatusCode() + ", getErrorType()=" + getErrorType() + ", getMessage()="
+				+ getMessage() + ", getErrors()=" + getErrors() + "]";
 	}
+	
+	
+	
+	
+	
+	
+//	@Override
+//	public String toString() {
+//		return "PaymentResponseBean [id=" + id + ", status=" + status + ", amount=" + amount + ", currency=" + currency
+//				+ ", description=" + description + ", fee=" + fee + ", amountFormat=" + amountFormat + ", feeFormat="
+//				+ feeFormat + ", invoiceID=" + invoiceID + ", ip=" + ip + ", createdOn=" + createdOn + ", updatedON="
+//				+ updatedON + ", source=" + source + "]";
+//	}
 	
 	
 	

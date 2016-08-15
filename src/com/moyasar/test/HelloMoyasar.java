@@ -22,7 +22,7 @@ public class HelloMoyasar {
 		
 		System.out.println("STARTING MOYASAR JAVA API TESTING \n\n");
 		
-		System.out.println(sqr.toString());
+//		System.out.println(sqr.toString());
 		
 		System.out.println("THE END OF MOYASAR JAVA API TESTING \n\n");
 		
@@ -33,20 +33,22 @@ public class HelloMoyasar {
 	}
 	
 	
-	public static PaymentsResponseBean getPaymentTest()
+	public static PaymentResponseBean getPaymentTest()
 	{
-		MoyasarClient c = new MoyasarClient("sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy", "sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy");
+		MoyasarClient c = new MoyasarClient("sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy", "sk_test_jv9XL2ot9WeWLF7UBE3xSJepzgfh8x6UYKBuCaWy", false);
 		PaymentsResponseBean payments = null; 
 		
 		payments = c.getAllPayments();
 		
 		System.out.println("Pyaments in account = " + payments.getPayments().size());
-		
+		System.out.println("Message & CODE ERROR:  ===> " + payments.getMessage() + " & " + payments.getStatusCode());
 		PaymentResponseBean paymentBean = new PaymentResponseBean(); 
-		paymentBean = c.getPayment("2811a704-e7d7-4fc5-a2e3-3a37974dd9");
+		// Correct Test Paymnet ID: 2811a704-e7d7-4fc5-a2e3-3a37974dd96f
+		paymentBean = c.getPayment("2811a704-e7d7-4fc5-a2e3-3a37974dd96f");
+		System.out.println("FULL BEAN --> " + paymentBean);
 		System.out.println("DESCRIPTION:  ===> " + paymentBean.getDescription());
-		
-		return payments; 
+		System.out.println("Message CODE ERROR:  ===> " + paymentBean.getMessage());
+		return paymentBean; 
 	}
 	
 }

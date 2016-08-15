@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentsResponseBean {
+public class PaymentsResponseBean extends Response{
 
 	@SerializedName("payments")
 	ArrayList<PaymentResponseBean> payments;

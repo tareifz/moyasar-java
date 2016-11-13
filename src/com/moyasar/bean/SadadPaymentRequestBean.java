@@ -1,12 +1,29 @@
 package com.moyasar.bean;
 
-public class SadadPaymentRequestBean extends PaymentRequestBean{
+import com.google.gson.annotations.SerializedName;
+
+public class SadadPaymentRequestBean extends SourceRequest{
 	
-	public static final String type = "sadad";
 	
+	public SadadPaymentRequestBean() {
+	}
+	
+	public SadadPaymentRequestBean(SourceRequest source) {
+		this.username = source.username;
+		this.successUrl = source.successUrl;
+		this.failUrl = source.failUrl;
+		this.type = "sadad";
+	}
+
+
+	@SerializedName("type")
+	public String type = "sadad" ;
+	@SerializedName("username")
 	public String username; //sadad’s username
-	public String success_url; //optional	success url page in customer ’s site. Use Moyasar’s success url if not given.
-	public String fail_url; //optional	fail url page in customer ’s site. Use Moyasar’s fail url if not given.
+	@SerializedName("success_url")
+	public String successUrl; //optional	success url page in customer ’s site. Use Moyasar’s success url if not given.
+	@SerializedName("fail_url")
+	public String failUrl; //optional	fail url page in customer ’s site. Use Moyasar’s fail url if not given.
 	
 	
 	public String getUsername() {
@@ -16,27 +33,16 @@ public class SadadPaymentRequestBean extends PaymentRequestBean{
 		this.username = username;
 	}
 	public String getSuccess_url() {
-		return success_url;
+		return successUrl;
 	}
 	public void setSuccess_url(String success_url) {
-		this.success_url = success_url;
+		this.successUrl = success_url;
 	}
 	public String getFail_url() {
-		return fail_url;
+		return failUrl;
 	}
 	public void setFail_url(String fail_url) {
-		this.fail_url = fail_url;
-	}
-	public static String getType() {
-		return type;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "SadadPaymentRequestBean [username=" + username + ", success_url=" + success_url + ", fail_url="
-				+ fail_url + ", getAmount()=" + getAmount() + ", getCurrency()=" + getCurrency() + ", getDescription()="
-				+ getDescription() + "]";
+		this.failUrl = fail_url;
 	}
 	
 	

@@ -24,6 +24,12 @@ public class PaymentResponseBean extends Response{
 	@SerializedName("fee")
 	private double fee;
 	
+	@SerializedName("refunded")
+	private double refunded;
+	
+	@SerializedName("refunded_at")
+	private String refunded_at;
+	
 	@SerializedName("amount_format")
 	private String amountFormat; 
 	
@@ -66,6 +72,19 @@ public class PaymentResponseBean extends Response{
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	
+	public double getRefunded() {
+		return refunded;
+	}
+	public void setRefunded(double refunded) {
+		this.refunded = refunded;
+	}
+	public String getRefunded_at() {
+		return refunded_at;
+	}
+	public void setRefunded_at(String refunded_at) {
+		this.refunded_at = refunded_at;
 	}
 	public String getCurrency() {
 		return currency;
@@ -121,18 +140,17 @@ public class PaymentResponseBean extends Response{
 	public void setUpdatedON(String updatedON) {
 		this.updatedON = updatedON;
 	}
-	
-	
 	@Override
 	public String toString() {
-		return "PaymentResponseBean [getSource()=" + getSource() + ", getId()=" + getId() + ", getStatus()="
-				+ getStatus() + ", getAmount()=" + getAmount() + ", getCurrency()=" + getCurrency()
-				+ ", getDescription()=" + getDescription() + ", getFee()=" + getFee() + ", getAmountFormat()="
-				+ getAmountFormat() + ", getFeeFormat()=" + getFeeFormat() + ", getInvoiceID()=" + getInvoiceID()
-				+ ", getIp()=" + getIp() + ", getCreatedOn()=" + getCreatedOn() + ", getUpdatedON()=" + getUpdatedON()
-				+ ", getStatusCode()=" + getStatusCode() + ", getErrorType()=" + getErrorType() + ", getMessage()="
-				+ getMessage() + ", getErrors()=" + getErrors() + "]";
+		return "PaymentResponseBean [id=" + id + ", status=" + status + ", amount=" + amount + ", currency=" + currency
+				+ ", description=" + description + ", fee=" + fee + ", refunded=" + refunded + ", refunded_at="
+				+ refunded_at + ", amountFormat=" + amountFormat + ", feeFormat=" + feeFormat + ", invoiceID="
+				+ invoiceID + ", ip=" + ip + ", createdOn=" + createdOn + ", updatedON=" + updatedON + ", source"
+				+ getSource().toString() + "]";
 	}
+	
+	
+	
 	
 	
 	

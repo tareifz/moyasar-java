@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.moyasar.bean.PaymentRequestBean;
 import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.PaymentsResponseBean;
+import com.moyasar.bean.SadadPaymentRequestBean;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -18,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MoyasarClient {
 	
-	public static final String API_BASE_URL = "https://api.moyasar.com/v1/";
+	public static final String API_BASE_URL = "https://apimig.moyasar.com/";
 	private String publicKey; 
 	private String privateKey;
 	private static Retrofit caller;
@@ -51,7 +52,63 @@ public class MoyasarClient {
 	}
 
 	public PaymentResponseBean makePayment(PaymentRequestBean payment){
-		return null;
+		PaymentResponseBean myPayment = new PaymentResponseBean();
+		try{
+			
+			MoyasarService service = caller.create(MoyasarService.class);
+			
+			Call<PaymentResponseBean> call = service.pay(getPublicKey(), payment);
+			
+			Response<PaymentResponseBean> response = call.execute(); 
+			if (response.isSuccessful()){
+				// 200 OK 
+				myPayment = response.body();
+				myPayment.setStatusCode(response.code());
+				myPayment.setMessage(response.message());
+			}else{
+				// API error  
+				myPayment.setStatusCode(response.code());
+				myPayment.setMessage(response.message());
+				myPayment.setErrorType("api_error");
+			}
+			
+	
+			/** Async. call it dose not fit the case.. 
+			call.enqueue(new Callback<PaymentResponseBean>(){
+
+				@Override
+				public void onFailure(Call<PaymentResponseBean> payment, Throwable e) {
+					System.out.println("Error Happend Payments Object: \n"+payment );
+					e.printStackTrace();
+				}
+
+				@Override
+				public void onResponse(Call<PaymentResponseBean> payment,
+						Response<PaymentResponseBean> respons) {
+					System.out.println("Response ---> \n"+ respons.body() );
+//					System.out.println("Payments --> \n" + payment.toString()); 
+					 if (respons.isSuccessful()){
+						 // We got 200 OK
+						 myPayment.setAmount(respons.body().getAmount());
+						 myPayment.setDescription(respons.body().getDescription());
+					 }else{
+						 // WE GOT AN ERROR
+					 }
+				}
+
+				
+			}); **/
+			
+		}catch(SocketTimeoutException tm)
+		{
+			System.err.println("API END POINT TIMED OUT");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return myPayment; 
+	
 	}
 	
 	
@@ -83,7 +140,11 @@ public class MoyasarClient {
 				
 			}else{
 				// API error  
-				System.err.println("Errors ===> " + response.errorBody());
+				System.err.println("Errors ===> " + response.errorBody().string().toString());
+				paymentsList.setStatusCode(response.code());
+				paymentsList.setMessage(response.message());
+				paymentsList.setErrorType(response.errorBody().string().toString());
+				throw new IllegalAccessException(paymentsList.getStatusCode() + ": " + paymentsList.getMessage() + "\n" + paymentsList.getErrorType());
 			}
 			
 			/** The below is ASYNC call which we will support in feature not now!  

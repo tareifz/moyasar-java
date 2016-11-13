@@ -1,11 +1,22 @@
 package com.moyasar.bean;
 
-public class CreditCardPaymentRequestBean extends PaymentRequestBean{
+public class CreditCardPaymentRequestBean extends SourceRequest{
 	
+	
+	
+	public CreditCardPaymentRequestBean(SourceRequest source) {
+		this.name = source.name;
+		this.number = source.number;
+		this.cvc = source.cvc;
+		this.month = source.month;
+		this.year = source.year;
+		this.type = "creditcard";
+	}
+
 	/**
 	 * The type of payment source. Should be “creditcard”
 	 */
-	public static final String type = "creditcard";
+	public String type = "creditcard" ;
 	/**
 	 * Card holder’s name
 	 */
@@ -13,21 +24,21 @@ public class CreditCardPaymentRequestBean extends PaymentRequestBean{
 	/**
 	 * The card number
 	 */
-	private int number;  
+	private String number;  
 	/**
 	 * Card security code.
 	 * */
-	private int cvc;
+	private String cvc;
 	
 	/**
 	 * 	Two digit number representing the card’s expiration month.
 	 */
-	 private int month;
+	 private String month;
 	
 	 /**
 	 * 	Four digit number representing the card’s expiration year.
 	 */
-	 private int year;	 
+	 private String year;	 
 	 
 	 
 	 
@@ -40,40 +51,36 @@ public class CreditCardPaymentRequestBean extends PaymentRequestBean{
 		this.name = name;
 	}
 
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public int getCvc() {
+	public String getCvc() {
 		return cvc;
 	}
 
-	public void setCvc(int cvc) {
+	public void setCvc(String cvc) {
 		this.cvc = cvc;
 	}
 
-	public int getMonth() {
+	public String getMonth() {
 		return month;
 	}
 
-	public void setMonth(int month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
-	}
-
-	public static String getType() {
-		return type;
 	}
 		
 

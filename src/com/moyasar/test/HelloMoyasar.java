@@ -13,38 +13,65 @@ public class HelloMoyasar {
 	
 	
 	public static void main(String[] args) {
+//		SourceRequest sqr = new SourceRequest();
+//		sqr.setUsername("u3041555Xolp");
+//		sqr.setFailUrl("https://dashboard.stg.moyasar.com/sadad/fail");
+//		sqr.setSuccessUrl("https://dashboard.stg.moyasar.com/sadad/success");
+//		sqr.setType("sadad");
+//		
+//		PaymentRequestBean payment = new PaymentRequestBean();
+//		payment.setAmount(199);
+//		payment.setSource(sqr);
+//		payment.setCurrency("SAR");
+//		payment.setDescription("Testing Java API Wrapprer for Moyasar");
+//			
+		System.out.println("STARTING MOYASAR JAVA API TESTING \n\n");
+//		
+//		System.out.println(sqr.toString());
+//		makePayment(payment);
+		
+		makeCCPayment();
+		
+		System.out.println("THE END OF MOYASAR JAVA API TESTING \n\n");
+//		
+//		System.out.println("STARTING MOYASAR JAVA API GET PAYMENTS TESTING \n\n");
+////		getPaymentTest();
+//		System.out.println("THE END OF MOYASAR JAVA API GET PAYMENTS TESTING \n\n");
+		
+	}
+	
+	
+	private static void makeCCPayment() {
+		// TODO Auto-generated method stub
 		SourceRequest sqr = new SourceRequest();
-		sqr.setUsername("u3041555Xolp");
-		sqr.setFailUrl("https://dashboard.moyasar.com/sadad/fail");
-		sqr.setSuccessUrl("https://dashboard.moyasar.com/sadad/success");
-		sqr.setType("sadad");
+		sqr.setName("Basem Aljedai");
+		sqr.setCvc("256");
+		sqr.setNumber("41111111111111");
+		sqr.setMonth("11");
+		sqr.setYear("2020");
+		sqr.setType("creditcard");
 		
 		PaymentRequestBean payment = new PaymentRequestBean();
-		payment.setAmount(143);
+		payment.setAmount(30000);
 		payment.setSource(sqr);
 		payment.setCurrency("SAR");
 		payment.setDescription("Testing Java API Wrapprer for Moyasar");
 		
 		
-		System.out.println("STARTING MOYASAR JAVA API TESTING \n\n");
-		
-		System.out.println(sqr.toString());
-		makePayment(payment);
-		
-		System.out.println("THE END OF MOYASAR JAVA API TESTING \n\n");
-		
-		System.out.println("STARTING MOYASAR JAVA API GET PAYMENTS TESTING \n\n");
-//		getPaymentTest();
-		System.out.println("THE END OF MOYASAR JAVA API GET PAYMENTS TESTING \n\n");
-		
-	}
-	
-	
-	private static void makePayment(PaymentRequestBean payment) {
-		MoyasarClient c = new MoyasarClient("sk_test_aP2CpcyUwBqpDhqok2wAq33u5gwtQ8nPtH9iS28h", "sk_test_aP2CpcyUwBqpDhqok2wAq33u5gwtQ8nPtH9iS28h", true);
+		MoyasarClient c = new MoyasarClient("pk_test_oVV2yBq9HyoPKTEgFr6sNkoxLip2cwLSr7oa94SR", "sk_test_GoHLPmrFVEWmmzSwZgk3Qbqf5WUjHMg6sv6R8NaX", true);
 		PaymentResponseBean response = c.makePayment(payment);
 		
-		System.out.println("RESPONSE ----> " + response);
+		System.out.println("PAYMENT STATUS: " + response.getSource().getMessage());
+		
+		
+	}
+
+
+	private static void makePayment(PaymentRequestBean payment) {
+		MoyasarClient c = new MoyasarClient("pk_test_oVV2yBq9HyoPKTEgFr6sNkoxLip2cwLSr7oa94SR", "sk_test_GoHLPmrFVEWmmzSwZgk3Qbqf5WUjHMg6sv6R8NaX", false);
+		PaymentResponseBean response = c.makePayment(payment);
+		
+		System.out.println(response.getSource().getTransactionURL());
 	}
 
 

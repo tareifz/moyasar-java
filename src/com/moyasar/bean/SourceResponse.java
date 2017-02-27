@@ -15,6 +15,12 @@ public class SourceResponse {
 	@SerializedName("transaction_url")
 	protected String transactionURL;
 	
+	public String getTransactionURL() {
+		return transactionURL;
+	}
+
+
+
 	// Credit Card attribute
 	@SerializedName("name")
 	protected String name;

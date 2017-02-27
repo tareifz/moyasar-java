@@ -4,6 +4,7 @@ import java.net.SocketTimeoutException;
 import java.util.Base64;
 import java.util.UUID;
 
+import com.moyasar.bean.ErrorsBean;
 import com.moyasar.bean.PaymentRequestBean;
 import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.PaymentsResponseBean;
@@ -70,6 +71,8 @@ public class MoyasarClient {
 				myPayment.setStatusCode(response.code());
 				myPayment.setMessage(response.message());
 				myPayment.setErrorType("api_error");
+				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
+				throw new Exception("MOYASAR API ERROR: " + errors);
 			}
 			
 	

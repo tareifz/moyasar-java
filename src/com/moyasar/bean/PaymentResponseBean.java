@@ -50,7 +50,6 @@ public class PaymentResponseBean extends Response{
 	
 	@SerializedName("source")
 	private SourceResponse source;
-	
     
 	public SourceResponse getSource() {
 		return source;

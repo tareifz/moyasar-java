@@ -52,6 +52,38 @@ public class SourceRequest {
 	public void setFailUrl(String failUrl) {
 		this.failUrl = failUrl;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getCvc() {
+		return cvc;
+	}
+	public void setCvc(String cvc) {
+		this.cvc = cvc;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	
+	
 	
 	
 //	public void setPaymentTypeObj(){

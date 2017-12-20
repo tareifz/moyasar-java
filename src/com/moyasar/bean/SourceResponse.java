@@ -20,37 +20,66 @@ public class SourceResponse {
 	}
 
 
-
 	// Credit Card attribute
 	@SerializedName("name")
 	protected String name;
 	@SerializedName( "message")
 	protected String message; 
 	@SerializedName("company")
-	protected String cardNetwork;
+	protected String company;
 	@SerializedName("number")
-	protected String cardNumber;
-	
+	protected String number;
 	
 	public SourceResponse getPaymentTypeObj(){
 		if (this.type.equals("creditcard")) {
 			return new CreditCardResponse(this);
 		}else if(this.type.equals("sadad")){
-			return new SadadResponse(this);
+			return new SadadSourceResponse(this);
 		}else {
 			throw new IllegalArgumentException("Uknown Source Type");
 		}
 	}
 
-
+	
 
 	public String getType() {
 		return type;
 	}
 
-	
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
 	public String getMessage() {
 		return message;
+	}
+
+
+
+	public String getCompany() {
+		return company;
+	}
+
+
+
+	public String getNumber() {
+		return number;
 	}
 
 
@@ -60,8 +89,5 @@ public class SourceResponse {
 		return getPaymentTypeObj().toString();
 		
 	}
-
-	
-	
 
 }

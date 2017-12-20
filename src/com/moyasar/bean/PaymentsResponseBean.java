@@ -5,13 +5,21 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentsResponseBean extends Response{
+public class PaymentsResponseBean extends Response {
 
 	@SerializedName("payments")
-	ArrayList<PaymentResponseBean> payments;
+	private ArrayList<PaymentResponseBean> payments;
+	
+	@SerializedName("meta")
+	private Meta responseMeta;
 
 	public List<PaymentResponseBean> getPayments() {
 		return payments;
+	}
+	
+	public Meta getMeta()
+	{
+		return responseMeta;
 	}
 
 	@Override
@@ -19,9 +27,9 @@ public class PaymentsResponseBean extends Response{
 		String payments; 
 		payments = "PaymentsResponseBean [payments=" ;
 		for (PaymentResponseBean p: this.payments) {
-			payments+= p.toString() ;
+			payments+= p.toString() + "\n" ;
 		}
-		payments+= "]";
+		payments+= "],\nmeta: " + responseMeta.toString();
 		return payments;
 	}
 	

@@ -1,7 +1,5 @@
 package com.moyasar.bean;
 
-import java.util.ArrayList;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,37 +15,31 @@ public class ErrorsBean {
 	private String message; 
 	@SerializedName("errors")
 	private String errors;
-	
+
 	public ErrorsBean(String JSONSTREEM){
 		JsonParser parser = new JsonParser(); 
 		JsonElement jsonTree = parser.parse(JSONSTREEM);
 		JsonObject  jobject = jsonTree.getAsJsonObject();
 		setType(jobject.getAsJsonPrimitive("type").getAsString());
 		setMessage(jobject.getAsJsonPrimitive("message").getAsString());
-		try{
+		
+		if(jobject.get("errors").isJsonNull())
+		{
+			setErrors(null);
+		}
+		else if (jobject.get("errors").isJsonObject())
+		{
 			jobject =  jobject.getAsJsonObject("errors");
 			setErrors(jobject.toString());
-		}catch (ClassCastException ce) {
-			// Log class cast exception and handle it
-				try{
-					JsonArray errors  = jobject.getAsJsonArray("errors");
-					setErrors(errors.toString());	
-				}catch(ClassCastException anotherClassError) {
-					JsonPrimitive errors =  jobject.getAsJsonPrimitive("errors");
-					setErrors(errors.toString());
-				}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
 		}
-		
-		
-				
-		
-		
+		else if(jobject.get("errors").isJsonPrimitive())
+		{
+			setErrors(jobject.getAsJsonPrimitive("errors").getAsString());
+		}
+
 	}
-	
-	
+
+
 	public String getType() {
 		return type;
 	}
@@ -77,8 +69,8 @@ public class ErrorsBean {
 	public String toString() {
 		return "ErrorsBean [type=" + type + ", message=" + message + ", errors=" + errors + "]";
 	}
-	
-	
-	
-	
+
+
+
+
 }

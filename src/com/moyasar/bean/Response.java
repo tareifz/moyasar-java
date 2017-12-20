@@ -13,14 +13,14 @@ public class Response {
 	@SerializedName("message")
 	private String message;
 	@SerializedName("errors")
-	private HashMap<String, String> errors;
+	private String errors;
 	
 	public Response() {
 		super();
 	}
 
 
-	public Response(int statusCode, String errorType, String message, HashMap<String, String> errors) {
+	public Response(int statusCode, String errorType, String message, String errors) {
 		super();
 		this.statusCode = statusCode;
 		this.errorType = errorType;
@@ -47,10 +47,10 @@ public class Response {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public HashMap<String, String> getErrors() {
+	public String getErrors() {
 		return errors;
 	}
-	public void setErrors(HashMap<String, String> errors) {
+	public void setErrors(String errors) {
 		this.errors = errors;
 	} 	
 	

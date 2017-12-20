@@ -1,10 +1,10 @@
 package com.moyasar.bean;
 
-public class SadadResponse extends SourceResponse {
+public class SadadSourceResponse extends SourceResponse {
 	
-	public SadadResponse(SourceResponse source) {
-		this.cardNetwork = source.cardNetwork;
-		this.cardNumber = source.cardNumber;
+	public SadadSourceResponse(SourceResponse source) {
+		this.company = source.company;
+		this.number = source.number;
 		this.errorCode = source.errorCode;
 		this.message = source.message;
 		this.name = source.name;

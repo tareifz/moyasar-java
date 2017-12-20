@@ -3,8 +3,8 @@ package com.moyasar.bean;
 public class CreditCardResponse extends SourceResponse {
 	
 	public CreditCardResponse(SourceResponse source) {
-		this.cardNetwork = source.cardNetwork;
-		this.cardNumber = source.cardNumber;
+		this.company = source.company;
+		this.number = source.number;
 		this.errorCode = source.errorCode;
 		this.message = source.message;
 		this.name = source.name;
@@ -18,20 +18,20 @@ public class CreditCardResponse extends SourceResponse {
 	}
 
 
-	public String getCardNetwork() {
-		return cardNetwork;
+	public String getCompany() {
+		return company;
 	}
 
 
-	public String getCardNumber() {
-		return cardNumber;
+	public String getNumber() {
+		return number;
 	}
 
 
 	@Override
 	public String toString() {
 		return "CreditCardResponse [type=" + type + ", name=" + name + ", message=" + message + ", cardNetwork="
-				+ cardNetwork + ", cardNumber=" + cardNumber + "]";
+				+ company + ", cardNumber=" + number + ", transactionURL=" + transactionURL + "]";
 	}
 
 	

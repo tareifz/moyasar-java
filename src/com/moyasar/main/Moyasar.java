@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Moyasar
 {
 
-	public static final String API_BASE_URL = "https://apimig.moyasar.com/";
+	public static final String API_BASE_URL = "https://api.moyasar.com/";
 	private String privateKey;
 	protected static Retrofit caller;
 	public MoyasarPayments Payment = new MoyasarPayments();

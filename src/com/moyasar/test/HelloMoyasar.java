@@ -14,12 +14,12 @@ public class HelloMoyasar {
 		System.out.println("STARTING MOYASAR JAVA API TESTING \n\n");
 		
 		
-//		Moyasar moyasar = new Moyasar("Your API Key");
+		Moyasar moyasar = new Moyasar("sk_test_Fb7YSFW7rMJEiKpjdfYEs5zTfwQnnWzxsnsgthka");
 		
 //		System.out.println("======== Make Payment ========");
 //		CreditCardSourceRequest sqr = new CreditCardSourceRequest("Abdulaziz Nasser", "4111111111111111", 331, 12, 2030);
 //		PaymentRequestBean payment = new PaymentRequestBean(7000, "SAR", "Testing Java API Wrapprer for Moyasar", sqr, "http://moyasar.com");
-//		System.out.println(moyasar.Payment.create(payment).toString());
+//		System.out.println(moyasar.Payment.create(payment));
 //		System.out.println("======== End Make Payment ========");
 //		System.out.println("======== Get Payment 0e62d86f-c2e0-4e4f-9881-bcdb9c6689a0 ========");
 //		System.out.println(moyasar.Payment.find("0e62d86f-c2e0-4e4f-9881-bcdb9c6689a0").toString());
@@ -217,6 +217,23 @@ public class HelloMoyasar {
 //		res.getMeta().getTotalPages();
 //		res.getMeta().getNextPage();
 //		res.getMeta().getPrevPage();
+		
+//		CreditCardSourceRequest ccsr2 = new CreditCardSourceRequest()
+//				.setName("Abdulaziz Nasser")
+////				.setNumber("4111111111111111")
+////				.setCvc(331)
+//				.setMonth(12)
+//				.setYear(2030);
+//		PaymentRequestBean payment = new PaymentRequestBean(7000, "SAR", "Testing Java API Wrapprer for Moyasar", ccsr2, "http://moyasar.com");
+//		
+//		try {
+//			moyasar.Payment.create(payment);
+//		} catch (MoyasarException e) {
+//			System.out.println(e.getStatusCode());
+//			System.out.println(e.getMessage());
+//			System.out.println(e.getErrorType());
+//			System.out.println(e.getErrors());
+//		}
 		
 		System.out.println("THE END OF MOYASAR JAVA API TESTING \n\n");
 		

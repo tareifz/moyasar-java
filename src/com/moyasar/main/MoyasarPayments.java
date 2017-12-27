@@ -5,6 +5,7 @@ import java.net.SocketTimeoutException;
 import java.util.Base64;
 
 import com.moyasar.bean.ErrorsBean;
+import com.moyasar.bean.MoyasarException;
 import com.moyasar.bean.PaymentRequestBean;
 import com.moyasar.bean.PaymentResponseBean;
 import com.moyasar.bean.PaymentsResponseBean;
@@ -17,7 +18,7 @@ public class MoyasarPayments {
 
 	private String privateKey;
 
-	public PaymentResponseBean create(PaymentRequestBean payment)
+	public PaymentResponseBean create(PaymentRequestBean payment) throws MoyasarException
 	{
 		PaymentResponseBean myPayment = new PaymentResponseBean();
 		try
@@ -39,10 +40,11 @@ public class MoyasarPayments {
 			{
 				// API error
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myPayment.setStatusCode(response.code());
-				myPayment.setMessage(errors.getMessage());
-				myPayment.setErrorType(errors.getType());
-				myPayment.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myPayment.setStatusCode(response.code());
+//				myPayment.setMessage(errors.getMessage());
+//				myPayment.setErrorType(errors.getType());
+//				myPayment.setErrors(errors.getErrors());
 			}
 
 
@@ -77,16 +79,20 @@ public class MoyasarPayments {
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			System.out.println(e.toString());
+//		}
 
 		return myPayment; 
 
 	}
 
-	public PaymentResponseBean find(String id)
+	public PaymentResponseBean find(String id) throws MoyasarException
 	{
 		PaymentResponseBean myPayment = new PaymentResponseBean();
 
@@ -116,25 +122,30 @@ public class MoyasarPayments {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myPayment.setStatusCode(response.code());
-				myPayment.setMessage(errors.getMessage());
-				myPayment.setErrorType(errors.getType());
-				myPayment.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myPayment.setStatusCode(response.code());
+//				myPayment.setMessage(errors.getMessage());
+//				myPayment.setErrorType(errors.getType());
+//				myPayment.setErrors(errors.getErrors());
 			}
 		}
 		catch(SocketTimeoutException tm)
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myPayment;
 	}
 
-	public PaymentResponseBean fetch(String id)
+	public PaymentResponseBean fetch(String id) throws MoyasarException
 	{
 		return find(id);
 	}
@@ -144,7 +155,7 @@ public class MoyasarPayments {
 	//		return null;
 	//	}
 
-	public PaymentResponseBean refund(String id)
+	public PaymentResponseBean refund(String id) throws MoyasarException
 	{
 		PaymentResponseBean myPayment = new PaymentResponseBean();
 
@@ -174,25 +185,30 @@ public class MoyasarPayments {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myPayment.setStatusCode(response.code());
-				myPayment.setMessage(errors.getMessage());
-				myPayment.setErrorType(errors.getType());
-				myPayment.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myPayment.setStatusCode(response.code());
+//				myPayment.setMessage(errors.getMessage());
+//				myPayment.setErrorType(errors.getType());
+//				myPayment.setErrors(errors.getErrors());
 			}
 		}
 		catch(SocketTimeoutException tm)
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myPayment;
 	}
 
-	public PaymentResponseBean refund(String id, int amount)
+	public PaymentResponseBean refund(String id, int amount) throws MoyasarException
 	{
 		PaymentResponseBean myPayment = new PaymentResponseBean();
 
@@ -222,20 +238,25 @@ public class MoyasarPayments {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myPayment.setStatusCode(response.code());
-				myPayment.setMessage(errors.getMessage());
-				myPayment.setErrorType(errors.getType());
-				myPayment.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myPayment.setStatusCode(response.code());
+//				myPayment.setMessage(errors.getMessage());
+//				myPayment.setErrorType(errors.getType());
+//				myPayment.setErrors(errors.getErrors());
 			}
 		}
 		catch(SocketTimeoutException tm)
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myPayment;
 	}
@@ -249,7 +270,7 @@ public class MoyasarPayments {
 		{
 			Response<ResponseBody> response = call.execute();
 
-			if(response.code() ==200)
+			if(response.code() == 200)
 				return true;
 			else
 				return false;
@@ -267,9 +288,10 @@ public class MoyasarPayments {
 	 * This Class will call Moyasar API to get all payment for this account. 
 	 * As per the Moyasar Policy we should use Private key to get data. Therefore, we will use the private key to get the data. 
 	 * @return ArrayList of Payments as an objects of PaymentResponse
+	 * @throws MoyasarException 
 	 */
 
-	public PaymentsResponseBean list(int page)
+	public PaymentsResponseBean list(int page) throws MoyasarException
 	{
 		PaymentsResponseBean paymentsList = new PaymentsResponseBean(); 
 		try
@@ -298,10 +320,11 @@ public class MoyasarPayments {
 //				paymentsList.setErrorType(response.errorBody().string().toString());
 //				throw new IllegalAccessException(paymentsList.getStatusCode() + ": " + paymentsList.getMessage() + "\n" + paymentsList.getErrorType());
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				paymentsList.setStatusCode(response.code());
-				paymentsList.setMessage(errors.getMessage());
-				paymentsList.setErrorType(errors.getType());
-				paymentsList.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				paymentsList.setStatusCode(response.code());
+//				paymentsList.setMessage(errors.getMessage());
+//				paymentsList.setErrorType(errors.getType());
+//				paymentsList.setErrors(errors.getErrors());
 			}
 
 			/** The below is ASYNC call which we will support in feature not now!  
@@ -324,10 +347,14 @@ public class MoyasarPayments {
 			});**/
 
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return paymentsList; 
 	}

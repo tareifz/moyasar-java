@@ -1,5 +1,6 @@
 package com.moyasar.main;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.Base64;
 
@@ -8,6 +9,7 @@ import com.moyasar.bean.InvoiceRequestBean;
 import com.moyasar.bean.InvoiceResponseBean;
 import com.moyasar.bean.InvoiceUpdateRequestBean;
 import com.moyasar.bean.InvoicesResponseBean;
+import com.moyasar.bean.MoyasarException;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -20,7 +22,7 @@ public class MoyasarInvoices {
 	//					Invoices
 	// ###############################################
 
-	public InvoiceResponseBean create(InvoiceRequestBean invoice)
+	public InvoiceResponseBean create(InvoiceRequestBean invoice) throws MoyasarException
 	{
 		InvoiceResponseBean myInvoice = new InvoiceResponseBean();
 		try
@@ -42,10 +44,11 @@ public class MoyasarInvoices {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myInvoice.setStatusCode(response.code());
-				myInvoice.setMessage(errors.getMessage());
-				myInvoice.setErrorType(errors.getType());
-				myInvoice.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myInvoice.setStatusCode(response.code());
+//				myInvoice.setMessage(errors.getMessage());
+//				myInvoice.setErrorType(errors.getType());
+//				myInvoice.setErrors(errors.getErrors());
 			}
 
 		}
@@ -53,16 +56,20 @@ public class MoyasarInvoices {
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myInvoice; 
 
 	}
 
-	public InvoiceResponseBean find(String id)
+	public InvoiceResponseBean find(String id) throws MoyasarException
 	{
 		InvoiceResponseBean myInvoice = new InvoiceResponseBean();
 
@@ -92,30 +99,35 @@ public class MoyasarInvoices {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myInvoice.setStatusCode(response.code());
-				myInvoice.setMessage(errors.getMessage());
-				myInvoice.setErrorType(errors.getType());
-				myInvoice.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myInvoice.setStatusCode(response.code());
+//				myInvoice.setMessage(errors.getMessage());
+//				myInvoice.setErrorType(errors.getType());
+//				myInvoice.setErrors(errors.getErrors());
 			}
 		}
 		catch(SocketTimeoutException tm)
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myInvoice;
 	}
 
-	public InvoiceResponseBean fetch(String id)
+	public InvoiceResponseBean fetch(String id) throws MoyasarException
 	{
 		return find(id);
 	}
 
-	public InvoiceResponseBean update(String id, InvoiceUpdateRequestBean req)
+	public InvoiceResponseBean update(String id, InvoiceUpdateRequestBean req) throws MoyasarException
 	{
 		InvoiceResponseBean myInvoice = new InvoiceResponseBean();
 
@@ -145,25 +157,30 @@ public class MoyasarInvoices {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myInvoice.setStatusCode(response.code());
-				myInvoice.setMessage(errors.getMessage());
-				myInvoice.setErrorType(errors.getType());
-				myInvoice.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myInvoice.setStatusCode(response.code());
+//				myInvoice.setMessage(errors.getMessage());
+//				myInvoice.setErrorType(errors.getType());
+//				myInvoice.setErrors(errors.getErrors());
 			}
 		}
 		catch(SocketTimeoutException tm)
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myInvoice;
 	}
 
-	public InvoiceResponseBean cancel(String id)
+	public InvoiceResponseBean cancel(String id) throws MoyasarException
 	{
 		InvoiceResponseBean myInvoice = new InvoiceResponseBean();
 
@@ -193,25 +210,30 @@ public class MoyasarInvoices {
 			{
 				// API error  
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				myInvoice.setStatusCode(response.code());
-				myInvoice.setMessage(errors.getMessage());
-				myInvoice.setErrorType(errors.getType());
-				myInvoice.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				myInvoice.setStatusCode(response.code());
+//				myInvoice.setMessage(errors.getMessage());
+//				myInvoice.setErrorType(errors.getType());
+//				myInvoice.setErrors(errors.getErrors());
 			}
 		}
 		catch(SocketTimeoutException tm)
 		{
 			System.err.println("API END POINT TIMED OUT");
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return myInvoice;
 	}
 	
-	public InvoicesResponseBean list(int page)
+	public InvoicesResponseBean list(int page) throws MoyasarException
 	{
 		InvoicesResponseBean invoicesList = new InvoicesResponseBean(); 
 		try
@@ -240,17 +262,22 @@ public class MoyasarInvoices {
 //				invoicesList.setErrorType(response.errorBody().string().toString());
 //				throw new IllegalAccessException(invoicesList.getStatusCode() + ": " + invoicesList.getMessage() + "\n" + invoicesList.getErrorType());
 				ErrorsBean errors = new ErrorsBean(response.errorBody().string());
-				invoicesList.setStatusCode(response.code());
-				invoicesList.setMessage(errors.getMessage());
-				invoicesList.setErrorType(errors.getType());
-				invoicesList.setErrors(errors.getErrors());
+				throw new MoyasarException(response.code(), errors.getMessage(), errors.getType(), errors.getErrors());
+//				invoicesList.setStatusCode(response.code());
+//				invoicesList.setMessage(errors.getMessage());
+//				invoicesList.setErrorType(errors.getType());
+//				invoicesList.setErrors(errors.getErrors());
 			}
 
 		}
-		catch(Exception e)
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		return invoicesList; 
 	}

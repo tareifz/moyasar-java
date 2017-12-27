@@ -14,7 +14,7 @@ public class HelloMoyasar {
 		System.out.println("STARTING MOYASAR JAVA API TESTING \n\n");
 		
 		
-		Moyasar moyasar = new Moyasar("sk_test_Fb7YSFW7rMJEiKpjdfYEs5zTfwQnnWzxsnsgthka");
+		Moyasar moyasar = new Moyasar("Your API Key");
 		
 //		System.out.println("======== Make Payment ========");
 //		CreditCardSourceRequest sqr = new CreditCardSourceRequest("Abdulaziz Nasser", "4111111111111111", 331, 12, 2030);
